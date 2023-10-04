@@ -1,12 +1,16 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import sklearn 
+from sklearn.ensemble import RandomForestClassifier 
 
 # Load the pre-trained Random Forest model
 model = joblib.load("rf.pkl")
 
 # Streamlit UI elements
 st.title("Churn Prediction App")
+st.markdown("<br>", unsafe_allow_html=True)  # Add a blank line
+st.write("Please input the following data:")
 
 # User input fields
 age = st.slider("Age", 18, 100, 30)
