@@ -1,24 +1,21 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import sklearn
-from sklearn.ensemble import RandomForestClassifier
 
 # Load the pre-trained Random Forest model
 model = joblib.load("rf.pkl")
 
 # Streamlit UI elements
 st.title("Churn Prediction App")
-st.sidebar.header("User Input")
 
 # User input fields
-age = st.sidebar.slider("Age", 18, 100, 30)
-tenure = st.sidebar.slider("Tenure", 0, 20, 5)
-balance = st.sidebar.slider("Balance", 0, 250000, 50000)
-num_of_products = st.sidebar.slider("Number of Products", 1, 4, 2)
-is_active_member = st.sidebar.checkbox("Is Active Member?")
-geography = st.sidebar.radio("Geography", ["France", "Germany", "Spain"])
-gender = st.sidebar.radio("Gender", ["Female", "Male"])
+age = st.slider("Age", 18, 100, 30)
+tenure = st.slider("Tenure", 0, 20, 5)
+balance = st.slider("Balance", 0, 250000, 50000)
+num_of_products = st.slider("Number of Products", 1, 4, 2)
+is_active_member = st.checkbox("Is Active Member?")
+geography = st.selectbox("Geography", ["France", "Germany", "Spain"])
+gender = st.selectbox("Gender", ["Female", "Male"])
 
 # Mapping categorical variables to numerical values
 geography_mapping = {"France": 0, "Germany": 1, "Spain": 2}
@@ -43,7 +40,7 @@ input_data = pd.DataFrame({
 })
 
 # Make prediction when the "Predict" button is clicked
-if st.sidebar.button("Predict"):
+if st.button("Predict"):
     prediction = model.predict(input_data)[0]
     if prediction == 1:
         st.subheader("Prediction: The customer is likely to churn.")
